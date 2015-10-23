@@ -11,14 +11,25 @@
 namespace Kreta\Component\Media\Application\Service\Media;
 
 
+use Kreta\Component\Media\Domain\Model\File;
+
 class UploadFileRequest
 {
-    public function __construct(FileInterface $file, $name) {
+    protected $file;
+    
+    protected $name;
+    
+    public function __construct(File $file, $name) {
         $this->file = $file;
     }
     
-    public function media()
+    public function file()
     {
-        return $this->media;
+        return $this->file;
+    }
+    
+    public function name() 
+    {
+        return $this->name;
     }
 }

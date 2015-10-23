@@ -1,17 +1,35 @@
 <?php
 
-/**
- * (c) benatespina <benatespina@gmail.com>
- *
- * This file belongs to myClapboard.
- * The source code of application includes a LICENSE file
- * with all information about license.
- */
-
 namespace Infrastructure\Persistence\Doctrine;
 
+use Doctrine\ORM\EntityManager;
+use Domain\Model\FileReferenceRepository;
+use Kreta\Component\Media\Model\FileReference;
 
-class DoctrineFileReferenceRepository
+class DoctrineFileReferenceRepository implements FileReferenceRepository
 {
+    /**
+     * The entity manager.
+     *
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $anEntityManager;
 
+    /**
+     * Contructor.
+     *
+     * @param \Doctrine\ORM\EntityManager $anEntityManager The entity manager
+     */
+    public function __construct(EntityManager $anEntityManager)
+    {
+        $this->anEntityManager = $anEntityManager;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function persist(FileReference $aFileReference)
+    {
+        $this->anEntityManager->persist($aFileReference);
+    }
 }

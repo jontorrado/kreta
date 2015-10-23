@@ -8,12 +8,8 @@
  * with all information about license.
  */
 
-namespace Domain\Model;
+namespace Kreta\Component\User\Domain\Model;
 
-
-interface Filesystem
+class UserInactiveException extends \Exception
 {
-    public function write($path, $content);
-    
-    public function remove($path);
 }

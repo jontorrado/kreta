@@ -11,10 +11,6 @@
 
 namespace Kreta\Component\Media\Model;
 
-use Kreta\Component\Core\Model\Abstracts\AbstractModel;
-use Kreta\Component\Media\Model\Interfaces\MediaInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 /**
  * Class Media.
  *
@@ -28,13 +24,6 @@ final class FileReference
      * @var \DateTime
      */
     protected $createdAt;
-
-    /**
-     * The media.
-     *
-     * @var \Symfony\Component\HttpFoundation\File\UploadedFile
-     */
-    protected $media;
 
     /**
      * The name.
@@ -53,45 +42,25 @@ final class FileReference
     /**
      * Constructor.
      */
-    public function __construct(File $file, $name)
+    public function __construct($name)
     {
+        $this->name = $name;
         $this->createdAt = new \DateTime();
-    }
-
-    public static function upload(File $file, $name) {
-        new self($file, $name);
-    }
-    
-    public function update(FileInterface $file, $name) {
         $this->updatedAt = new \DateTime();
     }
-    
-    public function isPicture() {
-        
+
+    public function update($name)
+    {
+        $this->name = $name;
+        $this->updatedAt = new \DateTime();
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function createdAt()
     {
         return $this->createdAt;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function media()
-    {
-        return $this->media;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function hasMedia()
-    {
-        return null !== $this->media;
     }
 
     /**

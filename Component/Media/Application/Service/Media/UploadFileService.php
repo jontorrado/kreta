@@ -11,40 +11,35 @@
 namespace Application\Service\Media;
 
 use Ddd\Application\Service\ApplicationService;
-use Gaufrette\Filesystem;
+use Domain\Model\FileReferenceRepository;
+use Domain\Model\Filesystem;
 use Kreta\Component\Media\Application\Service\Media\UploadMediaRequest;
+use Kreta\Component\Media\Model\FileReference;
+use Kreta\Component\Media\Model\Media;
 
 class UploadMediaService implements ApplicationService
 {
     protected $filesystem;
     
-    public function __construct(FilesystemInterface $filesystem) {
-        $this->filesystem = $filesystem;    
+    /**
+     * @var \Domain\Model\FileReferenceRepository
+     */
+    private $repository;
+
+    public function __construct(Filesystem $filesystem, FileReferenceRepository $repository)
+    {
+        $this->filesystem = $filesystem;
+        $this->repository = $repository;
     }
-    
-    public function execute($request) {
-        $media = $request->media();
-        $name = $request->name();
-        
-        if (!$media->hasMedia()) {
-            return;
-        }
 
-        if (null !== $media->getName()) {
-            $this->remove($media->getName());
-        }
+    public function execute($request = null)
+    {
+        $file = $request->file();
+        $filename = $request->filename();
 
-        do {
-            $hash = md5(uniqid(mt_rand(), true));
-        } while ($this->filesystem->has($name));
+        $this->filesystem->write($filename, $file->content());
+        $fileReference = new FileReference($filename);
 
-        $media->setName($name);
-
-        if ($test === false) {
-            $this->filesystem->write(
-                $media->getName(),
-                file_get_contents($media->getMedia()->getPathname())
-            );
-        }
+        $this->repository->persist($fileReference);
     }
 }

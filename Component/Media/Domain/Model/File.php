@@ -11,7 +11,9 @@
 namespace Kreta\Component\Media\Domain\Model;
 
 
-class File
+interface File
 {
-
+    public function content();
+    
+    public function extension();
 }

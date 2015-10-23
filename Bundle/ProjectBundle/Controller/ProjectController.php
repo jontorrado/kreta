@@ -100,4 +100,15 @@ class ProjectController extends Controller
             $request, $request->get('project'), ['method' => 'PUT']
         );
     }
+    
+    public function postProjectsChangeOwner(Request $request, $projectId) {
+        try {
+            $this->get('project.owner.change.service')->execute(
+                new ChangeOwnerRequest($request->get('owner'), $projectId)
+            );
+            //Enviar 200
+        } catch(InvalidOwnerException $e) {
+            //Enviar 400
+        }
+    }
 }

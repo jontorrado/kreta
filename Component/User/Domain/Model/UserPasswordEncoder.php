@@ -8,12 +8,9 @@
  * with all information about license.
  */
 
-namespace Domain\Model;
+namespace Kreta\Component\User\Domain\Model;
 
-
-interface Filesystem
+interface UserPasswordEncoder
 {
-    public function write($path, $content);
-    
-    public function remove($path);
+    public function encode($aPlainPassword, $aSalt);
 }

@@ -8,12 +8,10 @@
  * with all information about license.
  */
 
-namespace Domain\Model;
+namespace Kreta\Component\User\Application\Service;
 
 
-interface Filesystem
+class EditUserProfileService
 {
-    public function write($path, $content);
-    
-    public function remove($path);
+
 }
