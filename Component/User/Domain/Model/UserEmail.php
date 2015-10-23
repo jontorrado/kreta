@@ -1,20 +1,12 @@
 <?php
 
-/**
- * (c) benatespina <benatespina@gmail.com>
- *
- * This file belongs to myClapboard.
- * The source code of application includes a LICENSE file
- * with all information about license.
- */
-
 namespace Kreta\Component\User\Domain\Model;
 
 /**
- * Email value object that wraps into domain object
- * all the logic related with the email address.
+ * User email domain class.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 final class UserEmail
 {
@@ -44,14 +36,13 @@ final class UserEmail
      *
      * @param string $anEmail An email in primitive string
      *
-     * @throws \InvalidArgumentException when the email is not valid
+     * @throws UserInvalidEmailException when the email is not valid
      */
     public function __construct($anEmail)
     {
         if (!filter_var($anEmail, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException($anEmail);
+            throw new UserInvalidEmailException();
         }
-
         $this->email = $anEmail;
         $this->localPart = implode(explode('@', $this->email, -1), '@');
         $this->domain = str_replace($this->localPart . '@', '', $this->email);
@@ -68,7 +59,7 @@ final class UserEmail
     }
 
     /**
-     * Gets the local part of email address, for example: "info" into "info@lin3s.com".
+     * Gets the local part of email address, for example: "info" into "info@kreta.com".
      *
      * @return string
      */
@@ -90,7 +81,7 @@ final class UserEmail
     /**
      * Method that checks if the email given is equal to the current.
      *
-     * @param \Kreta\Component\User\Domain\Model\UserEmail $anEmail The email
+     * @param UserEmail $anEmail The email
      *
      * @return bool
      */
@@ -100,7 +91,7 @@ final class UserEmail
     }
 
     /**
-     * Magic method that represents the class in string format.
+     * Magic method that represents the user email in string format.
      *
      * @return string
      */

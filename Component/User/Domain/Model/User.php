@@ -4,31 +4,71 @@ namespace Kreta\Component\User\Domain\Model;
 
 use Ddd\Domain\DomainEventPublisher;
 
+/**
+ * User domain class.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
+ */
 final class User
 {
     /**
-     * @var \Kreta\Component\User\Domain\Model\UserId
+     * The id.
+     *
+     * @var UserId
      */
     private $id;
 
     /**
-     * @var \Kreta\Component\User\Domain\Model\UserEmail
+     * The confirmation token.
+     *
+     * @var UserConfirmationToken
+     */
+    private $confirmationToken;
+
+    /**
+     * Created on.
+     *
+     * @var \DateTime
+     */
+    private $createdOn;
+
+    /**
+     * The email.
+     *
+     * @var UserEmail
      */
     private $email;
 
     /**
-     * @var string
+     * The last login.
+     *
+     * @var \DateTime|null
+     */
+    private $lastLogin;
+
+    /**
+     * The password.
+     *
+     * @var UserPassword
      */
     private $password;
 
-    private $createdOn;
-
+    /**
+     * Updated on.
+     *
+     * @var \DateTime
+     */
     private $updatedOn;
-    
-    private $lastLogin;
-    
-    private $confirmationToken;
 
+    /**
+     * Constructor.
+     *
+     * @param UserId              $anId      The id
+     * @param UserEmail           $anEmail   The email
+     * @param string              $aPassword The plain password
+     * @param UserPasswordEncoder $encoder   The password encoder
+     */
     private function __construct(UserId $anId, UserEmail $anEmail, $aPassword, UserPasswordEncoder $encoder)
     {
         $this->id = $anId;
@@ -42,53 +82,96 @@ final class User
         DomainEventPublisher::instance()->publish(new UserRegistered($this));
     }
 
+    /**
+     * Named static constructor.
+     *
+     * @param UserId              $anId      The id
+     * @param UserEmail           $anEmail   The email
+     * @param string              $aPassword The plain password
+     * @param UserPasswordEncoder $encoder   The password encoder
+     *
+     * @return self
+     */
     public static function register(UserId $anId, UserEmail $anEmail, $aPassword, UserPasswordEncoder $encoder)
     {
         return new self($anId, $anEmail, $aPassword, $encoder);
     }
-    
-    public function activateAccount() 
-    {
-        $this->confirmationToken = null;    
-    }
 
-    public function rememberPassword()
-    {
-        $this->confirmationToken = new UserConfirmationToken();
-        
-        DomainEventPublisher::instance()->publish(new UserRememberPasswordRequested($this));
-    }
-    
-    public function isActive()
-    {
-        return $this->confirmationToken === null;
-    }
-    
-    public function login() 
-    {
-        $this->lastLogin = new \DateTime();
-        
-        DomainEventPublisher::instance()->publish(new UserLoggedIn($this));
-    }
-    
+    /**
+     * Gets the id.
+     *
+     * @return UserId
+     */
     public function id()
     {
         return $this->id;
     }
 
+    /**
+     * Enables the user account.
+     */
+    public function enableAccount()
+    {
+        $this->confirmationToken = null;
+    }
+
+    /**
+     * Gets the confirmation token.
+     *
+     * @return UserConfirmationToken
+     */
+    public function confirmationToken()
+    {
+        return $this->confirmationToken;
+    }
+
+    /**
+     * Gets the email.
+     *
+     * @return UserEmail
+     */
     public function email()
     {
         return $this->email;
     }
 
+    /**
+     * Checks if the user is enabled or not.
+     *
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->confirmationToken === null;
+    }
+
+    /**
+     * Updated the user state after login.
+     */
+    public function login()
+    {
+        $this->lastLogin = new \DateTime();
+
+        DomainEventPublisher::instance()->publish(new UserLoggedIn($this));
+    }
+
+    /**
+     * Gets the password.
+     *
+     * @return UserPassword
+     */
     public function password()
     {
         return $this->password;
     }
-    
-    public function confirmationToken()
+
+    /**
+     * Remembers the password.
+     */
+    public function rememberPassword()
     {
-        return $this->confirmationToken;
+        $this->confirmationToken = new UserConfirmationToken();
+
+        DomainEventPublisher::instance()->publish(new UserRememberPasswordRequested($this));
     }
 }
-

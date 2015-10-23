@@ -1,16 +1,23 @@
 <?php
 
-/**
- * (c) benatespina <benatespina@gmail.com>
- *
- * This file belongs to myClapboard.
- * The source code of application includes a LICENSE file
- * with all information about license.
- */
-
 namespace Kreta\Component\User\Domain\Model;
 
+/**
+ * User password encoder domain interface.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
+ */
 interface UserPasswordEncoder
 {
+    /**
+     * Encodes the given plain password with
+     * salt given returning the encoded password.
+     *
+     * @param string $aPlainPassword The plain password
+     * @param string $aSalt          The salt
+     *
+     * @return string
+     */
     public function encode($aPlainPassword, $aSalt);
 }

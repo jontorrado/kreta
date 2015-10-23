@@ -1,21 +1,14 @@
 <?php
 
-/**
- * (c) benatespina <benatespina@gmail.com>
- *
- * This file belongs to myClapboard.
- * The source code of application includes a LICENSE file
- * with all information about license.
- */
-
 namespace Kreta\Component\User\Domain\Model;
 
-use Rhumsaa\Uuid\Uuid;
+use Ramsey\Uuid\Uuid;
 
 /**
- * City id value object class.
+ * User id domain class.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 final class UserId
 {
@@ -59,7 +52,7 @@ final class UserId
     }
 
     /**
-     * Magic method that represents the city id in string format.
+     * Magic method that represents the user id in string format.
      *
      * @return string
      */

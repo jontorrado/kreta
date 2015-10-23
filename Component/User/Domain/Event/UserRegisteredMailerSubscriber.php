@@ -7,29 +7,48 @@ use Ddd\Domain\DomainEventSubscriber;
 use Kreta\Component\User\Domain\Model\UserMailer;
 use Kreta\Component\User\Domain\Model\UserRegistered;
 
+/**
+ * User registered mailer subscriber class.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
+ */
 final class UserRegisteredMailerSubscriber implements DomainEventSubscriber
 {
+    /**
+     * The mailer.
+     *
+     * @var UserMailer
+     */
     private $mailer;
-    
-    public function __construct(UserMailer $mailer) 
+
+    /**
+     * Constructor.
+     *
+     * @param UserMailer $aMailer The mailer
+     */
+    public function __construct(UserMailer $aMailer)
     {
-        $this->mailer = $mailer;
+        $this->mailer = $aMailer;
     }
 
     /**
-     * @param DomainEvent $aDomainEvent
+     * {@inheritdoc}
      */
     public function handle($aDomainEvent)
     {
         $user = $aDomainEvent->user();
-        
-        $this->mailer->mail($user->email(), 'Registered successfully');
+
+        $this->mailer->mail([
+            'subject' => 'Registered successfully',
+            'from'    => '???',
+            'to'      => $user->email(),
+            'body'    => '???',
+        ]);
     }
 
     /**
-     * @param DomainEvent $aDomainEvent
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isSubscribedTo($aDomainEvent)
     {

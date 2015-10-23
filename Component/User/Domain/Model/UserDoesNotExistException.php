@@ -2,6 +2,12 @@
 
 namespace Kreta\Component\User\Domain\Model;
 
-class UserDoesNotExistException extends \Exception
+/**
+ * User does not exist exception class.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
+ */
+final class UserDoesNotExistException extends \Exception
 {
 }

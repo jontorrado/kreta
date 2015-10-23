@@ -3,7 +3,7 @@
 namespace Kreta\Component\User\Domain\Model;
 
 /**
- * User repository domain class.
+ * User repository domain interface.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
@@ -38,7 +38,7 @@ interface UserRepository
     public function query($specification);
 
     /**
-     * Persist the given user.
+     * Persists the given user.
      *
      * @param User $aUser The user
      */

@@ -1,18 +1,16 @@
 <?php
 
-/**
- * (c) benatespina <benatespina@gmail.com>
- *
- * This file belongs to myClapboard.
- * The source code of application includes a LICENSE file
- * with all information about license.
- */
-
 namespace Kreta\Component\User\Domain\Model;
 
 use Ramsey\Uuid\Uuid;
 
-class UserConfirmationToken
+/**
+ * User confirmation domain class.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
+ */
+final class UserConfirmationToken
 {
     /**
      * The id in a primitive type.

@@ -1,17 +1,19 @@
 <?php
 
-/**
- * (c) benatespina <benatespina@gmail.com>
- *
- * This file belongs to myClapboard.
- * The source code of application includes a LICENSE file
- * with all information about license.
- */
-
 namespace Kreta\Component\User\Domain\Model;
 
-
+/**
+ * User mailer domain class.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
+ */
 interface UserMailer
 {
-    public function mail();
+    /**
+     * Mails an email with the given data.
+     *
+     * @param array $aMailData The data related to build an email
+     */
+    public function mail(array $aMailData);
 }
