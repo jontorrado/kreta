@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @package Kreta\Component\Media\Model
  */
-class Media extends AbstractModel implements MediaInterface
+final class FileReference
 {
     /**
      * Created at.
@@ -53,15 +53,27 @@ class Media extends AbstractModel implements MediaInterface
     /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct(File $file, $name)
     {
         $this->createdAt = new \DateTime();
     }
 
+    public static function upload(File $file, $name) {
+        new self($file, $name);
+    }
+    
+    public function update(FileInterface $file, $name) {
+        $this->updatedAt = new \DateTime();
+    }
+    
+    public function isPicture() {
+        
+    }
+    
     /**
      * {@inheritdoc}
      */
-    public function getCreatedAt()
+    public function createdAt()
     {
         return $this->createdAt;
     }
@@ -69,29 +81,9 @@ class Media extends AbstractModel implements MediaInterface
     /**
      * {@inheritdoc}
      */
-    public function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getMedia()
+    public function media()
     {
         return $this->media;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setMedia(UploadedFile $media = null)
-    {
-        $this->media = $media;
-
-        return $this;
     }
 
     /**
@@ -105,7 +97,7 @@ class Media extends AbstractModel implements MediaInterface
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function name()
     {
         return $this->name;
     }
@@ -113,28 +105,8 @@ class Media extends AbstractModel implements MediaInterface
     /**
      * {@inheritdoc}
      */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getUpdatedAt()
+    public function updatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setUpdatedAt(\DateTime $updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 }
