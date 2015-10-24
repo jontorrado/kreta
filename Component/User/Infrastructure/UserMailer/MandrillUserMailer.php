@@ -32,7 +32,7 @@ final class MandrillUserMailer implements UserMailer
     /**
      * {@inheritdoc}
      */
-    public function mail(array $aMailData)
+    public function mail($aSubject, $from, $to, $aBody)
     {
         // TODO: Implement mail() method.
     }

@@ -32,19 +32,13 @@ final class SwiftMailerUserMailer implements UserMailer
     /**
      * {@inheritdoc}
      */
-    public function mail(array $aMailData)
+    public function mail($aSubject, $from, $to, $aBody)
     {
-        if (false === array_key_exists('from', $aMailData) || false === array_key_exists('to', $aMailData)) {
-            throw new \InvalidArgumentException('From email and to email must be required');
-        }
-        $subject = array_key_exists('subject', $aMailData) ? $aMailData['subject'] : null;
-        $body = array_key_exists('body', $aMailData) ? $aMailData['body'] : null;
-
         $message = \Swift_Message::newInstance()
-            ->setSubject($subject)
-            ->setFrom($aMailData['from'])
-            ->setTo($aMailData['to'])
-            ->setBody($body);
+            ->setSubject($aSubject)
+            ->setFrom($from)
+            ->setTo($to)
+            ->setBody($aBody);
 
         $this->swiftMailer->send($message);
     }

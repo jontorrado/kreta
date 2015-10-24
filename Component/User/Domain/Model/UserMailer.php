@@ -13,7 +13,10 @@ interface UserMailer
     /**
      * Mails an email with the given data.
      *
-     * @param array $aMailData The data related to build an email
+     * @param array $aSubject The subject of the email
+     * @param array $from     Mail sending address
+     * @param array $to       Mail receiving address
+     * @param array $aBody    Mail body
      */
-    public function mail(array $aMailData);
+    public function mail($aSubject, $from, $to, $aBody);
 }

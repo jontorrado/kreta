@@ -39,12 +39,7 @@ final class UserRegisteredMailerSubscriber implements DomainEventSubscriber
     {
         $user = $aDomainEvent->user();
 
-        $this->mailer->mail([
-            'subject' => 'Registered successfully',
-            'from'    => '???',
-            'to'      => $user->email(),
-            'body'    => '???',
-        ]);
+        $this->mailer->mail('Registered successfully', '???', $user->email(), '???');
     }
 
     /**

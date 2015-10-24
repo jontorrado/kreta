@@ -38,12 +38,7 @@ final class UserRememberPasswordRequestedSubscriber implements DomainEventSubscr
     {
         $user = $aDomainEvent->user();
 
-        $this->mailer->mail([
-            'subject' => 'Remember password',
-            'from'    => '???',
-            'to'      => $user->email(),
-            'body'    => '???',
-        ]);
+        $this->mailer->mail('Remember password', '???', $user->email(), '???');
     }
 
     /**
