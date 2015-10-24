@@ -1,17 +1,15 @@
 <?php
 
-/**
- * (c) benatespina <benatespina@gmail.com>
- *
- * This file belongs to myClapboard.
- * The source code of application includes a LICENSE file
- * with all information about license.
- */
-
 namespace Kreta\Component\User\Infrastructure\UserPasswordEncoder;
 
 use Kreta\Component\User\Domain\Model\UserPasswordEncoder;
 
+/**
+ * Sha512 user password encoder class.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
+ */
 final class Sha512UserPasswordEncoder implements UserPasswordEncoder
 {
     /**
