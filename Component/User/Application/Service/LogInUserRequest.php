@@ -8,17 +8,17 @@ namespace Kreta\Component\User\Application\Service;
  * @author Beñat Espiña <benatespina@gmail.com>
  * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
-final class SignUpUserRequest
+final class LogInUserRequest
 {
     /**
-     * The user email.
+     * The user id.
      *
      * @var string
      */
-    private $email;
+    private $id;
 
     /**
-     * The plain password.
+     * The user plain password.
      *
      * @var string
      */
@@ -27,23 +27,23 @@ final class SignUpUserRequest
     /**
      * Constructor.
      *
-     * @param string $anEmail        The user email
-     * @param string $aPlainPassword The user password
+     * @param string $anId           The user id
+     * @param string $aPlainPassword The user plain password
      */
-    public function __construct($anEmail, $aPlainPassword)
+    public function __construct($anId, $aPlainPassword)
     {
-        $this->email = $anEmail;
+        $this->id = $anId;
         $this->plainPassword = $aPlainPassword;
     }
 
     /**
-     * Gets the user email.
+     * Gets the user id.
      *
      * @return string
      */
-    public function email()
+    public function id()
     {
-        return $this->email;
+        return $this->id;
     }
 
     /**

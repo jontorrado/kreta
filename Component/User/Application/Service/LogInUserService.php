@@ -11,7 +11,7 @@ use Kreta\Component\User\Domain\Model\UserPasswordEncoder;
 use Kreta\Component\User\Domain\Model\UserRepository;
 
 /**
- * User login application service class.
+ * User login service class.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
@@ -49,23 +49,23 @@ final class LogInUserService implements ApplicationService
      */
     public function execute($request = null)
     {
-        $userId = $request->userId();
-        $password = $request->password();
-        $user = $this->repository->userOfId($userId);
+        $userId = $request->id();
+        $plainPassword = $request->password();
 
+        $user = $this->repository->userOfId($userId);
         if (null === $user) {
             throw new UserDoesNotExistException();
         }
-
         if (false === $user->isEnabled()) {
             throw new UserInactiveException();
         }
 
-        $password = new UserPassword($password, $user->password()->salt(), $this->encoder);
+        $password = new UserPassword($plainPassword, $user->password()->salt(), $this->encoder);
         if (false === $user->password()->equals($password)) {
             throw new UserInvalidPasswordException();
         }
-
         $user->login();
+
+        $this->repository->persist($user);
     }
 }

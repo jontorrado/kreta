@@ -7,14 +7,16 @@ use Kreta\Component\User\Domain\Model\UserConfirmationTokenNotFoundException;
 use Kreta\Component\User\Repository\UserRepository;
 
 /**
- * Sign up user request class.
+ * Activate user account service class.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
-class ActivateUserAccountService implements ApplicationService
+final class ActivateUserAccountService implements ApplicationService
 {
     /**
+     * The user repository.
+     *
      * @var UserRepository
      */
     private $repository;
@@ -26,7 +28,6 @@ class ActivateUserAccountService implements ApplicationService
      */
     public function __construct(UserRepository $aRepository)
     {
-
         $this->repository = $aRepository;
     }
 
@@ -37,14 +38,12 @@ class ActivateUserAccountService implements ApplicationService
     {
         $confirmationToken = $request->confirmationToken();
 
-        $user = $this->repository->userOfConfirmationToken(
-            new UserConfirmationToken($confirmationToken)
-        );
-
+        $user = $this->repository->userOfConfirmationToken(new UserConfirmationToken($confirmationToken));
         if (null === $user) {
             throw new UserConfirmationTokenNotFoundException();
         }
-
         $user->enableAccount();
+
+        $this->repository->persist($user);
     }
 }
