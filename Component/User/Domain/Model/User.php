@@ -113,6 +113,8 @@ final class User
     public function enableAccount()
     {
         $this->confirmationToken = null;
+
+        DomainEventPublisher::instance()->publish(new UserEnabled($this));
     }
 
     /**

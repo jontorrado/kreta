@@ -4,6 +4,7 @@ namespace Kreta\Component\User\Infrastructure\Persistence\Doctrine;
 
 use Doctrine\ORM\EntityManager;
 use Kreta\Component\User\Domain\Model\User;
+use Kreta\Component\User\Domain\Model\UserConfirmationToken;
 use Kreta\Component\User\Domain\Model\UserEmail;
 use Kreta\Component\User\Domain\Model\UserId;
 use Kreta\Component\User\Domain\Model\UserRepository;
@@ -47,6 +48,14 @@ final class DoctrineUserRepository implements UserRepository
     public function userOfEmail(UserEmail $anEmail)
     {
         return $this->entityManager->findOneBy(['email' => $anEmail]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function userOfConfirmationToken(UserConfirmationToken $aConfirmationToken)
+    {
+        return $this->entityManager->findOneBy(['confirmationToken' => $aConfirmationToken]);
     }
 
     /**

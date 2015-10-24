@@ -21,10 +21,12 @@ final class UserConfirmationToken
 
     /**
      * Constructor.
+     *
+     * @param string | null $token User confirmation token. New will be generated if empty
      */
-    public function __construct()
+    public function __construct($token = null)
     {
-        $this->token = Uuid::uuid4()->toString();
+        $this->token = $token ?: Uuid::uuid4()->toString();
     }
 
     /**

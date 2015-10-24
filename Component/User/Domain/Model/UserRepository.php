@@ -29,6 +29,15 @@ interface UserRepository
     public function userOfEmail(UserEmail $anEmail);
 
     /**
+     * Finds the user of given email.
+     *
+     * @param UserConfirmationToken $aConfirmationToken The user confirmationToken
+     *
+     * @return User
+     */
+    public function userOfConfirmationToken(UserConfirmationToken $aConfirmationToken);
+
+    /**
      * Finds users with the given specification.
      *
      * @param object $specification The specification

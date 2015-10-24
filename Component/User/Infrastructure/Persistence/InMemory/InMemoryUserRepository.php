@@ -3,6 +3,7 @@
 namespace Kreta\Component\User\Infrastructure\Persistence\Doctrine;
 
 use Kreta\Component\User\Domain\Model\User;
+use Kreta\Component\User\Domain\Model\UserConfirmationToken;
 use Kreta\Component\User\Domain\Model\UserEmail;
 use Kreta\Component\User\Domain\Model\UserId;
 use Kreta\Component\User\Domain\Model\UserRepository;
@@ -52,6 +53,14 @@ final class InMemoryUserRepository implements UserRepository
         }
 
         return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function userOfConfirmationToken(UserConfirmationToken $aConfirmationToken)
+    {
+        throw new \Exception('Not implemented yet');
     }
 
     /**
